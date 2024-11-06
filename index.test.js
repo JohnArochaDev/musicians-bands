@@ -26,6 +26,14 @@ describe('Band, Musician, and Song Models', () => {
         expect(musician.instrument).toBe('test instrument');
     })
 
+    test('can create a Song', async () => {
+        const song = await Song.create({title: 'test name', year: 1, length: 1})
+
+        expect(song.title).toBe('test name');
+        expect(song.year).toBe(1);
+        expect(song.length).toBe(1);
+    })
+
     test('can update a Band', async () => {
         const band = await Band.create({ name: 'test name', genre: 'test genre' });
     
@@ -52,6 +60,20 @@ describe('Band, Musician, and Song Models', () => {
         expect(updatedMusician.instrument).toBe('updated instrument');
     })
 
+    test('can update a Song', async () => {
+        const song = await Song.create({title: 'test name', year: 1, length: 1})
+    
+        await Song.update({ title: 'updated name', year: 2, length: 2 }, {
+            where: { id: song.id }
+        });
+    
+        const updatedSong = await Song.findByPk(song.id);
+    
+        expect(updatedSong.title).toBe('updated name');
+        expect(updatedSong.year).toBe(2);
+        expect(updatedSong.length).toBe(2);
+    });
+
     test('can delete a Band', async () => {
         Band.destroy({where:{name: 'updated name'}})
         Band.destroy({where:{name: 'test name'}})
@@ -66,5 +88,13 @@ describe('Band, Musician, and Song Models', () => {
 
         let musicians = await Band.findAll()
         expect(musicians.length).toBe(0)
+    })
+
+    test('can delete a Song', async () => {
+        Song.destroy({where:{title: 'updated name'}})
+        Song.destroy({where:{title: 'test name'}})
+
+        let song = await Song.findAll()
+        expect(song.length).toBe(0)
     })
 })
