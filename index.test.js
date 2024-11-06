@@ -53,12 +53,18 @@ describe('Band, Musician, and Song Models', () => {
     })
 
     test('can delete a Band', async () => {
-        // TODO - test deleting a band
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        Band.destroy({where:{name: 'updated name'}})
+        Band.destroy({where:{name: 'test name'}})
+
+        let bands = await Band.findAll()
+        expect(bands.length).toBe(0)
     })
 
     test('can delete a Musician', async () => {
-        // TODO - test deleting a musician
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        Musician.destroy({where:{name: 'updated name'}})
+        Musician.destroy({where:{name: 'test name'}})
+
+        let musicians = await Band.findAll()
+        expect(musicians.length).toBe(0)
     })
 })
