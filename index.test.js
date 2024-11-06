@@ -13,23 +13,43 @@ describe('Band, Musician, and Song Models', () => {
     })
 
     test('can create a Band', async () => {
-        // TODO - test creating a band
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        const band = await Band.create({name: 'test name', genre: 'test genre'})
+
+        expect(band.name).toBe('test name');
+        expect(band.genre).toBe('test genre');
     })
 
     test('can create a Musician', async () => {
-        // TODO - test creating a musician
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        const musician = await Musician.create({name: 'test name', instrument: 'test instrument'})
+
+        expect(musician.name).toBe('test name');
+        expect(musician.instrument).toBe('test instrument');
     })
 
     test('can update a Band', async () => {
-        // TODO - test updating a band
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
-    })
+        const band = await Band.create({ name: 'test name', genre: 'test genre' });
+    
+        await Band.update({ name: 'updated name', genre: 'updated genre' }, {
+            where: { id: band.id }
+        });
+    
+        const updatedBand = await Band.findByPk(band.id);
+    
+        expect(updatedBand.name).toBe('updated name');
+        expect(updatedBand.genre).toBe('updated genre');
+    });
 
     test('can update a Musician', async () => {
-        // TODO - test updating a musician
-        expect('NO TEST').toBe('EXPECTED VALUE HERE');
+        const musician = await Musician.create({name: 'test name', instrument: 'test instrument'})
+
+        await Musician.update({ name: 'updated name', instrument: 'updated instrument' }, {
+            where: { id: musician.id }
+        });
+
+        const updatedMusician = await Musician.findByPk(musician.id)
+
+        expect(updatedMusician.name).toBe('updated name');
+        expect(updatedMusician.instrument).toBe('updated instrument');
     })
 
     test('can delete a Band', async () => {
