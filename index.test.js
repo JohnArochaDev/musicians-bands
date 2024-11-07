@@ -108,4 +108,14 @@ describe('Band, Musician, and Song Models', () => {
         expect(Musician.associations.Band.associationType).toBe('BelongsTo')
     })
 
+    test('A Band has many Song', async () => {
+        expect(Band.associations.Songs).toBeDefined()
+        expect(Band.associations.Songs.associationType).toBe('HasMany')
+    })
+
+    test('A Song has many Band', async () => {
+        expect(Song.associations.Bands).toBeDefined()
+        expect(Song.associations.Bands.associationType).toBe('HasMany')
+    })
+
 })
