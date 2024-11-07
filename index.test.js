@@ -1,5 +1,5 @@
 const { sequelize } = require('./db');
-const { Band, Musician, Song } = require('./index')
+const { Band, Musician, Song } = require('./index.js')
 
 describe('Band, Musician, and Song Models', () => {
     /**
@@ -97,4 +97,15 @@ describe('Band, Musician, and Song Models', () => {
         let song = await Song.findAll()
         expect(song.length).toBe(0)
     })
+
+    test('A Band can have many Musician', async () => {
+        expect(Band.associations.Musicians).toBeDefined()
+        expect(Band.associations.Musicians.associationType).toBe('HasMany')
+    })
+
+    test('A Musician belongs to a Band', async () => {
+        expect(Musician.associations.Band).toBeDefined()
+        expect(Musician.associations.Band.associationType).toBe('BelongsTo')
+    })
+
 })
